@@ -2,7 +2,6 @@ import { motion } from "framer-motion";
 import type { Countdown } from "../types";
 import {
   Calendar,
-  Cake,
   ChevronRight,
   Clock3,
   GlassWater,

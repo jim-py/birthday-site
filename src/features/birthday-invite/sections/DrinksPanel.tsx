@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { motion } from "framer-motion";
 import { Check, ChevronRight, GlassWater } from "../components/icons";
 import { SectionCard } from "../components/layout";

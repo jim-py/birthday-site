@@ -8,7 +8,7 @@ export const colors = {
   text: "#ffffff",
 } as const;
 
-export const EVENT_DATE = new Date("2026-08-15T19:00:00");
+export const EVENT_DATE = new Date("2026-06-20T19:00:00");
 
 export const drinkOptions = ["пиво", "шампанское", "ягермейстер", "водка"] as const;
 
