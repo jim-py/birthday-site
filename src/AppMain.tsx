@@ -229,6 +229,7 @@ function Carousel() {
 
         <div className="flex gap-2">
           <button
+            title="Список"
             onClick={prevSlide}
             className="rounded-full bg-black/40 p-3 text-white backdrop-blur-md"
           >
@@ -236,6 +237,7 @@ function Carousel() {
           </button>
 
           <button
+            title="Список"
             onClick={nextSlide}
             className="rounded-full bg-black/40 p-3 text-white backdrop-blur-md"
           >
