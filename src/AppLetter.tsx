@@ -5,6 +5,7 @@ import imageTest from "../src/photos/КрышкаКонверта.png";
 import DarkKonvert from "../src/photos/DarkKonvert.png";
 import WaxPrint from "../src/photos/WaxPrint.png";
 import Error404 from "./Funny404";
+import { useNavigate } from 'react-router-dom'
 
 /* ==========================================================================
    Types
@@ -66,8 +67,9 @@ async function runEnvelopeSequence(params: {
   setOpenState: (s: OpenState) => void;
   setConvertOpened: (v: boolean) => void;
   setShowText: (v: boolean) => void;
+  navigate: (path: string) => void;
 }) {
-  const { setOpenState, setConvertOpened, setShowText } = params;
+  const { setOpenState, setConvertOpened, setShowText, navigate } = params;
 
   // старт анимации
   setOpenState("opening");
@@ -80,6 +82,10 @@ async function runEnvelopeSequence(params: {
   await sleep(4100);
   setOpenState("opened");
   setShowText(true);
+  
+  await sleep(6000);
+
+  navigate("/home");
 }
 
 /* ==========================================================================
@@ -378,7 +384,7 @@ function preloadImages(urls: string[]): Promise<void[]> {
    Component
 ========================================================================== */
 
-export default function App() {
+export default function AppLetter() {
   /* ========================================================================
      State
   ======================================================================== */
@@ -395,6 +401,8 @@ const isValidUUID = (id: string) =>
   /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(id);
 
   const [loading, setLoading] = useState(true);
+
+  const navigate = useNavigate()
 
   /* ========================================================================
      Derived Data
@@ -462,6 +470,7 @@ const isValidUUID = (id: string) =>
       setOpenState,
       setConvertOpened,
       setShowText,
+      navigate,
     });
   };
 

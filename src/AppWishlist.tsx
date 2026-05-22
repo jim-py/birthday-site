@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { ExternalLink, Bookmark } from "lucide-react";
+import BottomNav from "./NavBar"
 
 type WishlistItem = {
   id: number;
@@ -143,6 +144,8 @@ function Wishlist() {
           ))}
         </div>
       </div>
+
+      <BottomNav />
     </div>
   );
 }

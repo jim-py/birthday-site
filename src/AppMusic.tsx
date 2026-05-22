@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import BottomNav from "./NavBar"
 import {
   Plus,
   Trash2,
@@ -377,6 +378,8 @@ const MusicPlaylistBlock: React.FC = () => {
           </AnimatePresence>
         </div>
       </div>
+      
+      <BottomNav />
     </div>
   );
 };

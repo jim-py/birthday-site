@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import BottomNav from "./NavBar"
 import {
   CalendarDays,
   ChevronLeft,
@@ -271,7 +272,7 @@ function Carousel() {
   );
 }
 
-function App() {
+function AppMain() {
   return (
     <div
       className="
@@ -392,8 +393,10 @@ function App() {
           </div>
         </motion.section>
       </div>
+
+      <BottomNav />
     </div>
   );
 }
 
-export default App;
+export default AppMain;

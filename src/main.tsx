@@ -1,9 +1,29 @@
 import { StrictMode, useEffect, useState } from 'react'
 import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './AppLetter.tsx'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
-const root = createRoot(document.getElementById('root')!)
+import './index.css'
+
+import AppLetter from './AppLetter'
+import AppMain from './AppMain'
+import MusicPlaylistBlock from './AppMusic'
+import WishlistItem from './AppWishlist'
+import AppFood from './AppFood'
+import AppProfile from './AppProfile'
+import Error404 from './Funny404'
+
+const routes = [
+  { path: '/home', element: <AppMain /> },
+  { path: '/music', element: <MusicPlaylistBlock /> },
+  { path: '/wishlist', element: <WishlistItem /> },
+  { path: '/food', element: <AppFood /> },
+  { path: '/profile', element: <AppProfile /> },
+]
+
+const rootEl = document.getElementById('root')
+if (!rootEl) throw new Error('Root not found')
+
+const root = createRoot(rootEl)
 
 function Root() {
   const [ready, setReady] = useState(false)
@@ -19,9 +39,19 @@ function Root() {
   if (!ready) return null
 
   return (
-    <StrictMode>
-      <App />
-    </StrictMode>
+  <StrictMode>
+    <BrowserRouter>
+      <Routes>
+        {routes.map((r) => (
+          <Route key={r.path} path={r.path} element={r.element} />
+        ))}
+
+        <Route path="/:id" element={<AppLetter />} />
+        
+        <Route path="*" element={<Error404 />} />
+      </Routes>
+    </BrowserRouter>
+  </StrictMode>
   )
 }
 
