@@ -28,7 +28,7 @@ const LETTERS: Record<string, Letter> = {
     name: "Alice",
     title: "Vintage Letter #1",
     body: `
-Дорогие Лиза и Миша,
+Дорогие Елизавета и Михаил,
 
 Приглашаем Вас на день рождения!
 Просим заполнить анкеты!
@@ -85,7 +85,7 @@ async function runEnvelopeSequence(params: {
   
   await sleep(6000);
 
-  navigate("/home");
+  //navigate("/home");
 }
 
 /* ==========================================================================
@@ -510,7 +510,7 @@ if (!letterId || !isValidUUID(letterId)) {
         style={{
           perspective: 2000,
           backgroundImage:
-            "url('https://png.pngtree.com/thumb_back/fw800/background/20231015/pngtree-vintage-wood-table-texture-background-image_13634695.png')",
+            "url('https://i.pinimg.com/736x/f2/79/a2/f279a2af62db9c95bccef5088b7d2a9e.jpg')",
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
@@ -690,9 +690,10 @@ if (!letterId || !isValidUUID(letterId)) {
               style={{
                 transformOrigin: "center",
                 backgroundImage:
-                  "url('https://img.magnific.com/premium-photo/old-grunge-parchment-paper-texture-background_118047-7213.jpg?w=2000')",
+                  "url('https://i.pinimg.com/1200x/c8/0c/d5/c80cd5975daaf90a7773b08c8ec10292.jpg')",
                 backgroundSize: "cover",
                 backgroundPosition: "center",
+                fontFamily: "Montserrat",
               }}
               className="
                 absolute
@@ -713,12 +714,12 @@ if (!letterId || !isValidUUID(letterId)) {
             >
               {/* Letter Header */}
               <div className="mb-4 text-xs uppercase tracking-[0.3em] text-stone-400">
-                Приглашение
+              
               </div>
 
               {/* Letter Content */}
               {showText && (
-                <div className="whitespace-pre-line font-serif text-[15px] leading-relaxed text-stone-700">
+                <div className="whitespace-pre-line text-[14px] leading-relaxed text-stone-700">
                   {displayedText}
                   <span className="animate-pulse">|</span>
                 </div>
