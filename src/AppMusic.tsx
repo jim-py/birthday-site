@@ -25,8 +25,6 @@ interface Track {
 
 type ViewMode = "list" | "grid";
 
-const API_BASE = "http://backend:5000";
-
 const MusicPlaylistBlock: React.FC = () => {
   const [playlist, setPlaylist] = useState<Track[]>([]);
   const [newLink, setNewLink] = useState("");
@@ -40,7 +38,7 @@ const MusicPlaylistBlock: React.FC = () => {
   useEffect(() => {
     const loadTracks = async () => {
       try {
-        const res = await fetch(`${API_BASE}/api/tracks`);
+        const res = await fetch(`/api/tracks`);
         const data = await res.json();
         setPlaylist(data || []);
       } catch (e) {
@@ -80,7 +78,7 @@ const MusicPlaylistBlock: React.FC = () => {
     }
 
     try {
-      const response = await fetch(`${API_BASE}/api/metadata`, {
+      const response = await fetch(`/api/metadata`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ url }),
@@ -120,7 +118,7 @@ const MusicPlaylistBlock: React.FC = () => {
     };
 
     try {
-      await fetch(`${API_BASE}/api/tracks`, {
+      await fetch(`/api/tracks`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -144,7 +142,7 @@ const MusicPlaylistBlock: React.FC = () => {
   // ===== DELETE TRACK (BACKEND SYNCED) =====
   const removeFromPlaylist = async (id: string) => {
     try {
-      await fetch(`${API_BASE}/api/tracks/${id}`, {
+      await fetch(`/api/tracks/${id}`, {
         method: "DELETE",
       });
 
