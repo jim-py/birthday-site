@@ -85,7 +85,7 @@ async function runEnvelopeSequence(params: {
   
   await sleep(6000);
 
-  //navigate("/home");
+  navigate("/home");
 }
 
 /* ==========================================================================
@@ -369,6 +369,7 @@ function preloadImages(urls: string[]): Promise<void[]> {
         const img = new Image();
 
         img.src = src;
+        console.log(reject)
 
         img.onload = () => resolve();
         img.onerror = () => {
