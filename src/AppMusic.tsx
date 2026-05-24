@@ -25,7 +25,7 @@ interface Track {
 
 type ViewMode = "list" | "grid";
 
-const API_BASE = "http://localhost:5000";
+const API_BASE = "http://backend:5000";
 
 const MusicPlaylistBlock: React.FC = () => {
   const [playlist, setPlaylist] = useState<Track[]>([]);
