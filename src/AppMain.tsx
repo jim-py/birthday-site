@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { MapPinned } from 'lucide-react';
 import BottomNav from "./NavBar"
 import {
   CalendarDays,
@@ -24,7 +25,7 @@ const images = [
   Photo6,
 ];
 
-const EVENT_DATE = new Date("2026-06-20T18:00:00");
+const EVENT_DATE = new Date("2026-06-20T17:00:00");
 
 function getTimeLeft() {
   const difference = EVENT_DATE.getTime() - Date.now();
@@ -220,7 +221,7 @@ function Carousel() {
           transition={{ duration: 0.45 }}
           draggable={false}
           className="
-            h-[680px]
+            h-[600px]
             w-full
             object-cover
             pointer-events-none
@@ -256,12 +257,8 @@ function Carousel() {
       {/* caption */}
       <div className="absolute bottom-0 left-0 right-0 p-6">
         <h1 className="text-4xl font-black text-white md:text-6xl">
-          День рождения
+          Место встречи
         </h1>
-
-        <p className="mt-3 max-w-xl text-sm text-zinc-200 md:text-base">
-          Атмосферное мероприятие, музыка и красивые локации.
-        </p>
 
         <div className="mt-5 flex justify-center gap-2">
           {images.map((_, i) => (
@@ -286,6 +283,7 @@ function AppMain() {
         bg-zinc-100
         px-4
         py-6
+        pb-30
         text-zinc-900
         transition-colors
         duration-300
@@ -349,7 +347,7 @@ function AppMain() {
                   md:text-5xl
                 "
               >
-                20 июня 2026 · 18:00
+                20 июня 2026 · 17:00
               </h2>
             </div>
 
@@ -373,11 +371,36 @@ function AppMain() {
                 <MapPin size={18} />
 
                 <span>
-                  Berlin Event Hall, Alexanderplatz 8,
-                  Berlin
+Ярославль, улица Центральная, д. 25
+р-н Заволжский
                 </span>
               </div>
 
+    <div className="flex items-center justify-center">
+      <motion.a
+        href="https://yandex.ru/maps/-/CPHcuCIf"
+        target="_blank"
+        rel="noopener noreferrer"
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.96 }}
+        className="group relative inline-flex items-center gap-3 overflow-hidden rounded-2xl border border-white/10 bg-white/10 px-6 py-4 text-white shadow-2xl backdrop-blur-xl transition-colors duration-300 hover:bg-white/20"
+      >
+        <motion.div
+          initial={{ rotate: 0 }}
+          whileHover={{ rotate: -12 }}
+          transition={{ type: 'spring', stiffness: 260, damping: 14 }}
+          className="flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-500/20"
+        >
+          <MapPinned className="h-6 w-6 text-emerald-400" />
+        </motion.div>
+
+        <div className="flex flex-col">
+          <span className="text-lg font-semibold tracking-wide">
+            Открыть на карте
+          </span>
+        </div>
+      </motion.a>
+    </div>
               <div
                 className="
                   flex

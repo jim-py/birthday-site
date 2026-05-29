@@ -1,5 +1,6 @@
 import express from "express";
 import { addTrack, getTracks, deleteTrack } from "../services/tracks.service";
+import { reserveWishlistItem } from "../services/wishlist.service"
 
 const router = express.Router();
 

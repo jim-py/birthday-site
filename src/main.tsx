@@ -13,11 +13,11 @@ import AppProfile from './AppProfile'
 import Error404 from './Funny404'
 
 const routes = [
-  { path: '/home', element: <AppMain /> },
-  { path: '/music', element: <MusicPlaylistBlock /> },
-  { path: '/wishlist', element: <WishlistItem /> },
-  { path: '/food', element: <AppFood /> },
-  { path: '/profile', element: <AppProfile /> },
+  { path: '/home/:id', element: <AppMain /> },
+  { path: '/music/:id', element: <MusicPlaylistBlock /> },
+  { path: '/wishlist/:id', element: <WishlistItem /> },
+  { path: '/food/:id', element: <AppFood /> },
+  { path: '/profile/:id', element: <AppProfile /> },
 ]
 
 const rootEl = document.getElementById('root')

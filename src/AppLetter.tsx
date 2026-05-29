@@ -67,28 +67,29 @@ async function runEnvelopeSequence(params: {
   setConvertOpened: (v: boolean) => void;
   setZState: (v: ZState) => void;
   navigate: (path: string) => void;
+  letterId: string;
 }) {
-  const { setOpenState, setConvertOpened, setZState, navigate } =
+  const { setOpenState, setConvertOpened, setZState, navigate, letterId } =
     params;
 
-  // старт анимации
-  setOpenState("opening");
+  // // старт анимации
+  // setOpenState("opening");
 
-  // swap текстуры клапана
-  await sleep(900);
-  setConvertOpened(true);
-  setZState("opening");
+  // // swap текстуры клапана
+  // await sleep(900);
+  // setConvertOpened(true);
+  // setZState("opening");
 
-  await sleep(2000)
-  setZState("opened");
+  // await sleep(2000)
+  // setZState("opened");
 
-  // завершение открытия
-  await sleep(1500);
-  setOpenState("opened");
+  // // завершение открытия
+  // await sleep(1500);
+  // setOpenState("opened");
 
-  await sleep(6000);
+  // await sleep(6000);
 
-  navigate("/home");
+  navigate(`/home/${letterId}`);
 }
 
 /* ==========================================================================
@@ -306,7 +307,7 @@ function Loader() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.7, delay: 0.2 }}
-          className="mt-4 text-neutral-300"
+          className="mt-4 text-neutral-300 font-serif"
         >
           Праздник уже совсем близко
         </motion.p>
@@ -468,6 +469,7 @@ export default function AppLetter() {
       setConvertOpened,
       setZState,
       navigate,
+      letterId,
     });
   };
 
@@ -491,13 +493,13 @@ export default function AppLetter() {
   }
 
   return (
-    <div className="w-full h-screen flex items-center justify-center bg-neutral-900">
+    <div className=" flex items-center justify-center bg-black">
       {/* Основной контейнер 9:16 */}
       <div
         className="
           relative
           aspect-[9/16]
-          h-[100vh]
+          h-[100dvh]
           overflow-hidden
           bg-gradient-to-b from-amber-100 via-amber-50 to-stone-200
           shadow-2xl
@@ -524,8 +526,8 @@ export default function AppLetter() {
             onClick={handleOpenEnvelope}
             className="
               relative
-              w-[80%]
-              h-[30%]
+              w-[300px]
+              h-[200px]
               cursor-pointer
               rounded-md
               border border-stone-300
@@ -633,7 +635,7 @@ export default function AppLetter() {
               }}
               className="
                 absolute
-                top-27
+                top-25
                 left-1/2
                 z-20
                 -translate-x-1/2
@@ -693,8 +695,8 @@ export default function AppLetter() {
                 left-1/2
                 top-1/2
                 z-1
-                h-[220%]
-                w-[78%]
+                h-[230%]
+                w-[90%]
                 -translate-x-1/2
                 -translate-y-1/2
                 overflow-hidden

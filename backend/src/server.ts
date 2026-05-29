@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import got from 'got';
 import tracksRouter from "./routes/tracks.routes";
+import wishlistRouter from "./routes/wishlist.routes";
 
 const app = express();
 app.use(cors());
@@ -70,6 +71,8 @@ app.post('/api/metadata', async (req, res) => {
 });
 
 app.use("/api/tracks", tracksRouter);
+
+app.use("/api/wishlist", wishlistRouter);
 
 const PORT = 5000;
 app.listen(PORT, () => {

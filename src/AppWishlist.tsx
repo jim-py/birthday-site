@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { ExternalLink, Bookmark } from "lucide-react";
 import BottomNav from "./NavBar"
 import Markers from "../src/photos/Markers.webp";
@@ -7,6 +8,7 @@ import SisterVeter from "../src/photos/SisterVeter.jpg";
 import SisterLuna from "../src/photos/SisterLuna.jpg";
 import Love from "../src/photos/Love.webp";
 import Vois from "../src/photos/Vois.webp";
+import Money from "../src/photos/Money.jpg";
 
 type WishlistItem = {
   id: number;
@@ -15,6 +17,11 @@ type WishlistItem = {
   price: string;
   image: string;
   link: string;
+};
+
+type Reservation = {
+  item_id: number;
+  reserved_by: string;
 };
 
 const items: WishlistItem[] = [
@@ -66,18 +73,92 @@ const items: WishlistItem[] = [
   },
   {
     id: 6,
-    title: "Увлажняющая сыворотка, крем для лица",
+    title: "Свой подарок",
     description: "",
-    price: "~ 950 ₽",
+    price: "~ ₽",
     image:
       Vois,
-    link: "https://www.wildberries.ru/catalog/280087028/detail.aspx?size=430210129",
+    link: "https://ru.pinterest.com/pin/9359111720515513",
+  },
+  {
+    id: 7,
+    title: "Деньгами",
+    description: "",
+    price: "~ ₽",
+    image:
+      Money,
+    link: "https://ru.pinterest.com/pin/756041856236485301/",
   },
 ];
 
 function Wishlist() {
+  const { id } = useParams();
+  const [reservations, setReservations] =
+  useState<Reservation[]>([]);
+
+const handleReserve = async (itemId: number) => {
+  try {
+    await fetch(
+      "/api/wishlist/reserve",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          reservedBy: id,
+          itemId,
+        }),
+      }
+    );
+
+    await loadReservations();
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+const handleCancelReservation = async (
+  itemId: number
+) => {
+  await fetch(
+    "/api/wishlist/reserve",
+    {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        reservedBy: id,
+        itemId,
+      }),
+    }
+  );
+
+  await loadReservations();
+};
+
+const loadReservations = async () => {
+  const response = await fetch(
+    "/api/wishlist/reservations"
+  );
+
+  const data = await response.json();
+
+  setReservations(data);
+};
+
+useEffect(() => {
+  loadReservations();
+}, []);
+
+const getReservation = (itemId: number) =>
+  reservations.find(
+    (reservation) => reservation.item_id === itemId
+  );
+
   return (
-    <div className="min-h-screen bg-zinc-100 text-zinc-900 transition-colors dark:bg-zinc-950 dark:text-white">
+    <div className="pb-20 min-h-screen bg-zinc-100 text-zinc-900 transition-colors dark:bg-zinc-950 dark:text-white">
       <div className="mx-auto w-full max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
         <div className="mb-8 flex items-center gap-3">
           <div className="rounded-2xl bg-zinc-900 p-3 text-white dark:bg-white dark:text-black">
@@ -94,18 +175,9 @@ function Wishlist() {
         </div>
 
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
-          {items.map((item, index) => (
-            <motion.div
-              key={item.id}
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                duration: 0.35,
-                delay: index * 0.08,
-              }}
-              whileHover={{
-                y: -4,
-              }}
+          {items.map((item) => (
+            <div
+            key={item.id}
               className="overflow-hidden rounded-3xl border border-zinc-200 bg-white shadow-sm transition-all hover:shadow-xl dark:border-zinc-800 dark:bg-zinc-900"
             >
               <div className="relative aspect-[3/4] w-full overflow-hidden">
@@ -145,16 +217,58 @@ function Wishlist() {
                 </div>
 
                 <div className="flex flex-col gap-3 sm:flex-row">
-                  <button
-                    className="
+{(() => {
+  const reservation = getReservation(item.id);
+
+  if (!reservation) {
+    return (
+      <button
+        onClick={() => handleReserve(item.id)}
+        className="
                       flex-1 rounded-2xl bg-zinc-900 px-4 py-3
                       text-sm font-medium text-white transition-all
                       hover:bg-zinc-800 active:scale-[0.98]
                       dark:bg-white dark:text-black dark:hover:bg-zinc-200
-                    "
-                  >
-                    Забронировать
-                  </button>
+        "
+      >
+        Забронировать
+      </button>
+    );
+  }
+
+  if (reservation.reserved_by === id) {
+    return (
+      <button
+        onClick={() =>
+          handleCancelReservation(item.id)
+        }
+        className="
+                      flex-1 rounded-2xl bg-zinc-900 px-4 py-3
+                      text-sm font-medium text-white transition-all
+                      hover:bg-zinc-800 active:scale-[0.98]
+                      dark:bg-white dark:text-black dark:hover:bg-zinc-200
+        "
+      >
+        Отменить бронь
+      </button>
+    );
+  }
+
+  return (
+    <button
+      disabled
+      className="
+                      flex-1 rounded-2xl bg-zinc-900 px-4 py-3
+                      text-sm font-medium text-white transition-all
+                      hover:bg-zinc-800 active:scale-[0.98]
+                      dark:bg-white dark:text-black dark:hover:bg-zinc-200
+        cursor-not-allowed
+      "
+    >
+      Уже забронировано
+    </button>
+  );
+})()}
 
                   <a
                     href={item.link}
@@ -173,7 +287,7 @@ function Wishlist() {
                   </a>
                 </div>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>
