@@ -72,22 +72,22 @@ async function runEnvelopeSequence(params: {
   const { setOpenState, setConvertOpened, setZState, navigate, letterId } =
     params;
 
-  // // старт анимации
-  // setOpenState("opening");
+  // старт анимации
+  setOpenState("opening");
 
-  // // swap текстуры клапана
-  // await sleep(900);
-  // setConvertOpened(true);
-  // setZState("opening");
+  // swap текстуры клапана
+  await sleep(900);
+  setConvertOpened(true);
+  setZState("opening");
 
-  // await sleep(2000)
-  // setZState("opened");
+  await sleep(2000)
+  setZState("opened");
 
-  // // завершение открытия
-  // await sleep(1500);
-  // setOpenState("opened");
+  // завершение открытия
+  await sleep(1500);
+  setOpenState("opened");
 
-  // await sleep(6000);
+  await sleep(15000);
 
   navigate(`/home/${letterId}`);
 }
