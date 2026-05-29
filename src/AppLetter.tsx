@@ -1,11 +1,18 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Mail } from "lucide-react";
-import imageTest from "../src/photos/КрышкаКонверта.png";
+import CapConvert from "../src/photos/CapConvert.png";
 import DarkKonvert from "../src/photos/DarkKonvert.png";
 import WaxPrint from "../src/photos/WaxPrint.png";
+import LizaMisha from "../src/photos/LizaMisha.jpg";
+import AlenaIvan from "../src/photos/AlenaIvan.jpg";
+import Regina from "../src/photos/Regina.jpg";
+import Nastya from "../src/photos/Nastya.jpg";
+import Denis from "../src/photos/Denis.jpg";
+import PaperEnvelope from "../src/photos/PaperEnvelope.avif";
+import BackgroundBlack from "../src/photos/BackgroundBlack.jpg";
 import Error404 from "./Funny404";
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 
 /* ==========================================================================
    Types
@@ -13,10 +20,10 @@ import { useNavigate } from 'react-router-dom'
 
 type OpenState = "closed" | "opening" | "opened";
 
+type ZState = "closed" | "opening" | "opened";
+
 type Letter = {
-  name: string;
-  title: string;
-  body: string;
+  letterPhoto: string;
 };
 
 /* ==========================================================================
@@ -25,31 +32,23 @@ type Letter = {
 
 const LETTERS: Record<string, Letter> = {
   "a2f05295-bea7-42d2-ae45-bbb21bed8660": {
-    name: "Alice",
-    title: "Vintage Letter #1",
-    body: `
-Дорогие Елизавета и Михаил,
-
-Приглашаем Вас на день рождения!
-Просим заполнить анкеты!
-
-Ваша Ксюшка.
-    `.trim(),
+    letterPhoto: LizaMisha,
   },
 
   "b7c1f3a2-91c8-4f2e-9f2b-2f3a8c91d123": {
-    name: "Bob",
-    title: "Vintage Letter #2",
-    body: `
-Dear Bob,
-
-This is Letter #2 assigned to your UUID.
-
-Another sealed message from the archive.
-
-Yours truly,
-The Past
-    `.trim(),
+    letterPhoto: AlenaIvan,
+  },
+  
+  "d9a22006-d0e6-4e56-a9ab-ba25d0346d56": {
+    letterPhoto: Regina,
+  },
+  
+  "b3a72609-c528-4a74-8e98-43000f06075d": {
+    letterPhoto: Nastya,
+  },
+  
+  "a53c1ac3-b3e7-472f-a418-0826cdcd743a": {
+    letterPhoto: Denis,
   },
 };
 
@@ -66,10 +65,11 @@ const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 async function runEnvelopeSequence(params: {
   setOpenState: (s: OpenState) => void;
   setConvertOpened: (v: boolean) => void;
-  setShowText: (v: boolean) => void;
+  setZState: (v: ZState) => void;
   navigate: (path: string) => void;
 }) {
-  const { setOpenState, setConvertOpened, setShowText, navigate } = params;
+  const { setOpenState, setConvertOpened, setZState, navigate } =
+    params;
 
   // старт анимации
   setOpenState("opening");
@@ -77,12 +77,15 @@ async function runEnvelopeSequence(params: {
   // swap текстуры клапана
   await sleep(900);
   setConvertOpened(true);
+  setZState("opening");
+
+  await sleep(2000)
+  setZState("opened");
 
   // завершение открытия
-  await sleep(4100);
+  await sleep(1500);
   setOpenState("opened");
-  setShowText(true);
-  
+
   await sleep(6000);
 
   navigate("/home");
@@ -108,12 +111,11 @@ function Loader() {
         rotate: Math.random() * 360,
         x: (Math.random() - 0.5) * 120,
         drift: (Math.random() - 0.5) * 80,
-        color:
-          ["#ffffff", "#ffd166", "#ff6b6b", "#7dd3fc", "#c084fc"][
-            Math.floor(Math.random() * 5)
-          ],
+        color: ["#ffffff", "#ffd166", "#ff6b6b", "#7dd3fc", "#c084fc"][
+          Math.floor(Math.random() * 5)
+        ],
       };
-    })
+    }),
   );
 
   const [fireworks] = useState(() =>
@@ -126,7 +128,7 @@ function Loader() {
       scale: 0.8 + Math.random() * 0.8,
       size: 70 + Math.random() * 60,
       hue: Math.random() * 360,
-    }))
+    })),
   );
 
   useEffect(() => {
@@ -260,8 +262,14 @@ function Loader() {
                   }}
                   initial={{ x: 0, y: 0, opacity: 0 }}
                   animate={{
-                    x: [0, Math.cos((angle * Math.PI) / 180) * (fw.size * 0.55)],
-                    y: [0, Math.sin((angle * Math.PI) / 180) * (fw.size * 0.55)],
+                    x: [
+                      0,
+                      Math.cos((angle * Math.PI) / 180) * (fw.size * 0.55),
+                    ],
+                    y: [
+                      0,
+                      Math.sin((angle * Math.PI) / 180) * (fw.size * 0.55),
+                    ],
                     opacity: [0, 1, 0],
                     scale: [0.7, 1.2, 0.7],
                   }}
@@ -342,7 +350,6 @@ function Loader() {
           <div className="mt-2 text-xs text-neutral-400">
             {Math.round(progress * 100)}%
           </div>
-
         </div>
       </motion.div>
 
@@ -353,13 +360,18 @@ function Loader() {
 }
 
 const ASSETS = [
-  imageTest,
+  CapConvert,
   DarkKonvert,
   WaxPrint,
 
-  // фоновые текстуры
-  "https://img.magnific.com/premium-photo/close-up-paper-envelope_223622-644.jpg",
-  "https://img.magnific.com/premium-photo/old-grunge-parchment-paper-texture-background_118047-7213.jpg?w=2000",
+  PaperEnvelope,
+  BackgroundBlack,
+
+  LizaMisha,
+  AlenaIvan,
+  Regina,
+  Nastya,
+  Denis,
 ];
 
 function preloadImages(urls: string[]): Promise<void[]> {
@@ -369,7 +381,7 @@ function preloadImages(urls: string[]): Promise<void[]> {
         const img = new Image();
 
         img.src = src;
-        console.log(reject)
+        console.log(reject);
 
         img.onload = () => resolve();
         img.onerror = () => {
@@ -392,18 +404,19 @@ export default function AppLetter() {
 
   const [convertOpened, setConvertOpened] = useState(false);
   const [openState, setOpenState] = useState<OpenState>("closed");
+  const [ZState, setZState] = useState<ZState>("closed");
 
-  const [showText, setShowText] = useState(false);
-  const [displayedText, setDisplayedText] = useState("");
+  const letterId =
+    window.location.pathname.split("/").filter(Boolean)[0] ?? null;
 
-const letterId = window.location.pathname.split("/").filter(Boolean)[0] ?? null;
-
-const isValidUUID = (id: string) =>
-  /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(id);
+  const isValidUUID = (id: string) =>
+    /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(
+      id,
+    );
 
   const [loading, setLoading] = useState(true);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   /* ========================================================================
      Derived Data
@@ -414,23 +427,6 @@ const isValidUUID = (id: string) =>
   /* ========================================================================
      Effects
   ======================================================================== */
-
-  useEffect(() => {
-    if (openState !== "opened" || !letter) return;
-
-    let index = 0;
-
-    const interval = setInterval(() => {
-      setDisplayedText(letter.body.slice(0, index + 1));
-      index++;
-
-      if (index >= letter.body.length) {
-        clearInterval(interval);
-      }
-    }, 35);
-
-    return () => clearInterval(interval);
-  }, [openState, letter]);
 
   useEffect(() => {
     let isMounted = true;
@@ -470,7 +466,7 @@ const isValidUUID = (id: string) =>
     runEnvelopeSequence({
       setOpenState,
       setConvertOpened,
-      setShowText,
+      setZState,
       navigate,
     });
   };
@@ -479,9 +475,9 @@ const isValidUUID = (id: string) =>
      Empty State
   ======================================================================== */
 
-if (!letterId || !isValidUUID(letterId)) {
-  return <Error404 />;
-}
+  if (!letterId || !isValidUUID(letterId)) {
+    return <Error404 />;
+  }
 
   if (!letter) {
     return <Error404 />;
@@ -501,17 +497,14 @@ if (!letterId || !isValidUUID(letterId)) {
         className="
           relative
           aspect-[9/16]
-          h-[90vh]
+          h-[100vh]
           overflow-hidden
-          rounded-2xl
-          border border-stone-300
           bg-gradient-to-b from-amber-100 via-amber-50 to-stone-200
           shadow-2xl
         "
         style={{
           perspective: 2000,
-          backgroundImage:
-            "url('https://i.pinimg.com/736x/f2/79/a2/f279a2af62db9c95bccef5088b7d2a9e.jpg')",
+          backgroundImage: `url(${BackgroundBlack})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
@@ -545,8 +538,7 @@ if (!letterId || !isValidUUID(letterId)) {
               before:bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.8),transparent_60%)]
             "
             style={{
-              backgroundImage:
-                "url('https://img.magnific.com/premium-photo/close-up-paper-envelope_223622-644.jpg')",
+              backgroundImage: `url(${PaperEnvelope})`,
               backgroundSize: "cover",
               backgroundPosition: "center",
             }}
@@ -557,7 +549,7 @@ if (!letterId || !isValidUUID(letterId)) {
               animate={{
                 rotateX: openState !== "closed" ? 180 : 0,
                 backgroundImage: !convertOpened
-                  ? `url(${imageTest})`
+                  ? `url(${CapConvert})`
                   : `url(${DarkKonvert})`,
               }}
               transition={{
@@ -579,7 +571,7 @@ if (!letterId || !isValidUUID(letterId)) {
               style={{
                 transformStyle: "preserve-3d",
                 clipPath: "polygon(-5% 0, 105% 0, 50% 105%)",
-                backgroundImage: `url(${imageTest})`,
+                backgroundImage: `url(${CapConvert})`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
               }}
@@ -598,8 +590,7 @@ if (!letterId || !isValidUUID(letterId)) {
               style={{
                 clipPath:
                   "polygon(0 5%, 50% 56%, 53% 56%, 100% 2%, 100% 100%, 0 100%)",
-                backgroundImage:
-                  "url('https://img.magnific.com/premium-photo/close-up-paper-envelope_223622-644.jpg')",
+                backgroundImage: `url(${PaperEnvelope})`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
               }}
@@ -642,7 +633,7 @@ if (!letterId || !isValidUUID(letterId)) {
               }}
               className="
                 absolute
-                top-24
+                top-27
                 left-1/2
                 z-20
                 -translate-x-1/2
@@ -664,44 +655,45 @@ if (!letterId || !isValidUUID(letterId)) {
               initial={{
                 y: 0,
                 opacity: 1,
-                scaleY: 0.5,
+                scaleY: 0.3,
                 zIndex: 1,
               }}
               animate={{
-                zIndex: convertOpened ? 11 : 1,
-                y: openState === "closed" ? 0 : -140,
-                scaleY: openState === "closed" ? 0.5 : 1,
+                zIndex: ZState === "closed" ? 1 : ZState === "opening" ? 11 : ZState === "opened" ? 110 : 1,
+                y: openState === "closed" ? 0 : [0, -180, 0],
+                scaleY: openState === "closed" ? 0.3 : [0.3, 0.3, 0.3, 1],
               }}
               transition={{
                 y: {
                   delay: 2,
-                  duration: 0.9,
-                  ease: "easeOut",
+                  duration: 1.6,
+                  times: [0, 0.45, 1],
+                  ease: ["easeOut", "easeInOut"],
+                },
+
+                scaleY: {
+                  duration: 4,
+                  times: [0, 0.7, 0.85, 1],
+                  ease: "easeInOut",
                 },
                 opacity: {
                   delay: 2,
                   duration: 0.4,
                 },
-                scaleY: {
-                  delay: 3,
-                  duration: 0.7,
-                  ease: "easeInOut",
-                },
               }}
               style={{
                 transformOrigin: "center",
-                backgroundImage:
-                  "url('https://i.pinimg.com/1200x/c8/0c/d5/c80cd5975daaf90a7773b08c8ec10292.jpg')",
+                backgroundImage: `url(${letter?.letterPhoto})`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
-                fontFamily: "Montserrat",
+                fontFamily: "Montserrat, sans-serif",
               }}
               className="
                 absolute
                 left-1/2
                 top-1/2
                 z-1
-                h-[150%]
+                h-[220%]
                 w-[78%]
                 -translate-x-1/2
                 -translate-y-1/2
@@ -713,18 +705,6 @@ if (!letterId || !isValidUUID(letterId)) {
                 shadow-2xl
               "
             >
-              {/* Letter Header */}
-              <div className="mb-4 text-xs uppercase tracking-[0.3em] text-stone-400">
-              
-              </div>
-
-              {/* Letter Content */}
-              {showText && (
-                <div className="whitespace-pre-line text-[14px] leading-relaxed text-stone-700">
-                  {displayedText}
-                  <span className="animate-pulse">|</span>
-                </div>
-              )}
             </motion.div>
           </div>
         </motion.div>

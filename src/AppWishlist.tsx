@@ -1,6 +1,12 @@
 import { motion } from "framer-motion";
 import { ExternalLink, Bookmark } from "lucide-react";
 import BottomNav from "./NavBar"
+import Markers from "../src/photos/Markers.webp";
+import Pixar from "../src/photos/Pixar.webp";
+import SisterVeter from "../src/photos/SisterVeter.jpg";
+import SisterLuna from "../src/photos/SisterLuna.jpg";
+import Love from "../src/photos/Love.webp";
+import Vois from "../src/photos/Vois.webp";
 
 type WishlistItem = {
   id: number;
@@ -16,29 +22,56 @@ const items: WishlistItem[] = [
     id: 1,
     title: "Маркеры акриловые набор 240 цветов",
     description:
-      "Low-profile mechanical keyboard with RGB and hot-swap switches.",
+      "",
     price: "~ 4 900 ₽",
     image:
-      "https://basket-25.wbbasket.ru/vol4472/part447234/447234305/images/big/1.webp",
+      Markers,
     link: "https://www.wildberries.ru/catalog/447234305/detail.aspx",
   },
   {
     id: 2,
     title: "Раскраска по номерам Disney Best Of Pixar",
-    description: "Premium noise cancelling headphones for work and travel.",
+    description: "",
   price: "~ 2 200 ₽",
     image:
-      "https://basket-26.wbbasket.ru/vol4846/part484664/484664896/images/big/1.webp",
+      Pixar,
     link: "https://www.wildberries.ru/catalog/484664896/detail.aspx?size=676214380",
   },
   {
     id: 3,
-    title: "Семь сестер Сестра ветра",
-    description: "Great for drawing, media consumption and productivity. asdfsda fsd fasd fsda fsadf ",
-    price: "~ 2 750 ₽",
+    title: "Л. Райли. Сестра ветра",
+    description: "Хочется именно это коллекционное издание, обязательно в этой обложке. Необязательно из этого объявления",
+    price: "~ 3 200 ₽",
     image:
-      "https://40.img.avito.st/image/1/1.Mpnf3La4nnDpdVx1t5Bswud8nHZhfRx4qXiccm91lnpp.PN3EZyhFXmY-YB1tlvpC4n9IWeYzzrPzUg2w8VbNPU0",
-    link: "https://www.avito.ru/sankt-peterburg/knigi_i_zhurnaly/lyusinda_rayli_sem_sester_sestra_vetra_est_defekt_8149975117?utm_campaign=native&utm_medium=item_page_ios&utm_source=soc_sharing",
+      SisterVeter,
+    link: "https://www.avito.ru/sankt-peterburg/knigi_i_zhurnaly/l._rayli._sestra_vetra_8160270510",
+  },
+  {
+    id: 4,
+    title: "Л. Райли. Сестра луны",
+    description: "Хочется именно это коллекционное издание, обязательно в этой обложке. Необязательно из этого объявления",
+    price: "~ 3 300 ₽",
+    image:
+      SisterLuna,
+    link: "https://www.avito.ru/sankt-peterburg/knigi_i_zhurnaly/lyusinda_rayli_sem_sester_sestra_luny_8118073485",
+  },
+  {
+    id: 5,
+    title: "Алмазная мозаика Любовь",
+    description: "",
+    price: "~ 700 ₽",
+    image:
+      Love,
+    link: "https://www.wildberries.ru/catalog/556129207/detail.aspx",
+  },
+  {
+    id: 6,
+    title: "Увлажняющая сыворотка, крем для лица",
+    description: "",
+    price: "~ 950 ₽",
+    image:
+      Vois,
+    link: "https://www.wildberries.ru/catalog/280087028/detail.aspx?size=430210129",
   },
 ];
 
@@ -89,7 +122,7 @@ function Wishlist() {
                     {item.title}
                   </h2>
 
-                  <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">
+                  <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">
                     {item.description}
                   </p>
                 </div>

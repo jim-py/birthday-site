@@ -8,14 +8,20 @@ import {
   Clock3,
   MapPin,
 } from "lucide-react";
+import Photo1 from "../src/photos/photo1.jpg";
+import Photo2 from "../src/photos/photo2.jpg";
+import Photo3 from "../src/photos/photo3.jpg";
+import Photo4 from "../src/photos/photo4.jpg";
+import Photo5 from "../src/photos/photo5.jpg";
+import Photo6 from "../src/photos/photo6.jpg";
 
 const images = [
-  "https://sun9-9.vkuserphoto.ru/s/v1/ig2/dW3JFi_aiSvyfAdQjJQCoo0bPIFQjNxuhwhJ5VLdEz9fAoNNHWzY8thLc_JZQ_rd2TVUe8BW9NLpgl8vAuLpHwBm.jpg?quality=95&as=32x57,48x85,72x128,108x192,160x284,240x427,360x640,480x853,540x960,640x1138,720x1280,1080x1920,1280x2276,1440x2560&from=bu&cs=1440x0",
-  "https://sun9-15.vkuserphoto.ru/s/v1/ig2/saYopRi8Nm74KW9F8b8uwwQsURPbRKHH6RZY-jyU3UkSO25wR5qobjwgcKmucnhn_VF29zleuF5WL4tM8y5VVdGE.jpg?quality=95&as=32x24,48x36,72x54,108x81,160x120,240x180,360x270,480x360,540x405,640x480,720x540,1080x810,1280x960,1440x1080,2560x1920&from=bu&cs=2560x0",
-  "https://sun9-18.vkuserphoto.ru/s/v1/ig2/BZWL0MYwAxEV1ISNqXtlcZ18VHMxOwgj8kMJk8dw078Zr_FLPdAOATq1z9l1jhp7qwI6pgVsc6m_v-6MA-lXZWav.jpg?quality=95&as=32x24,48x36,72x54,108x81,160x120,240x180,360x270,480x360,540x405,640x480,720x540,1080x810,1280x960,1440x1080,2560x1920&from=bu&cs=2560x0",
-  "https://sun9-25.vkuserphoto.ru/s/v1/ig2/r-q9HQETlam3ZckoezRobqlpS9yaA0pIJrrR-YDNjLhAOqNz_9djAAqhuJoD8fhQtBn_q3MgYslfyvcd46FkdfHx.jpg?quality=95&as=32x24,48x36,72x54,108x81,160x120,240x180,360x270,480x360,540x405,640x480,720x540,1080x810,1280x960,1440x1080,2560x1920&from=bu&cs=2560x0",
-  "https://sun9-88.vkuserphoto.ru/s/v1/ig2/NIM86KgynSb_FgOQq2ukSSFne5vtXQvILnJ75Lgaj3Hc7GVAJ4WJlwfuZ1PZWQ0GVBzjyjcMOHQaaznb1laL5WTK.jpg?quality=95&as=32x24,48x36,72x54,108x81,160x120,240x180,360x270,480x360,540x405,640x480,720x540,1080x810,1280x960,1440x1080,2560x1920&from=bu&cs=2560x0",
-  "https://sun9-34.vkuserphoto.ru/s/v1/ig2/2mjayV8p0CGGITAxu3bpMFkJ3qAlw8wgKkc1KrxuZQT394XGAHPaZNGAmu_B6--7MF7J8ZF7P4zQGt7sAI2ZYX5R.jpg?quality=95&as=32x57,48x85,72x128,108x192,160x285,240x427,360x641,480x855,540x961,640x1139,719x1280&from=bu&cs=719x0",
+  Photo1,
+  Photo2,
+  Photo3,
+  Photo4,
+  Photo5,
+  Photo6,
 ];
 
 const EVENT_DATE = new Date("2026-06-20T18:00:00");
