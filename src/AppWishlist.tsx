@@ -6,7 +6,9 @@ function Wishlist() {
 
   return (
     <div className="pb-20 min-h-screen bg-zinc-100 text-zinc-900 transition-colors dark:bg-zinc-950 dark:text-white">
+      
       <div className="mx-auto w-full max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+        
         <div className="mb-8 flex items-center gap-3">
           <div className="rounded-2xl bg-zinc-900 p-3 text-white dark:bg-white dark:text-black">
             <Bookmark size={22} />
@@ -45,7 +47,13 @@ function Wishlist() {
           </span>
         </div>
       </motion.a>
-    </div>      </div>
+    </div>      
+    
+<h4 className="text-2xl font-black text-white text-center">
+  P.S.: в приложении не видно кто что забронировал 😉
+</h4>
+    
+    </div>
 
       <BottomNav />
     </div>

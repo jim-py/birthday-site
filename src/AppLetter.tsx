@@ -150,7 +150,7 @@ function Loader() {
     return () => clearInterval(interval);
   }, []);
 
-  const texts = ["Вы получили письмо…", "Садитесь за стол…"];
+  const texts = ["Вы получили письмо…", "Вы получили письмо…"];
 
   return (
     <div
