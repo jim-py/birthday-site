@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 import {
   Home,
-  Music,
   Heart,
   User,
 } from "lucide-react";
@@ -9,7 +8,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 const items = [
   { id: "home", icon: Home, path: "/home" },
-  { id: "music", icon: Music, path: "/music" },
+  // { id: "music", icon: Music, path: "/music" },
   { id: "wishlist", icon: Heart, path: "/wishlist" },
   { id: "profile", icon: User, path: "/profile" },
 ];
