@@ -25,6 +25,9 @@ export function cancelWishlistReservation(
   reservedBy: string
 ): Promise<boolean> {
   return new Promise((resolve, reject) => {
+
+    console.log("DELETE START", itemId, reservedBy);
+
     db.run(
       `
       DELETE FROM wishlist_reservations
@@ -32,7 +35,16 @@ export function cancelWishlistReservation(
       `,
       [itemId, reservedBy],
       function (err) {
-        if (err) return reject(err);
+
+        console.log("DELETE CALLBACK");
+
+        if (err) {
+          console.error("SQLITE ERROR:", err);
+          return reject(err);
+        }
+
+        console.log("CHANGES:", this.changes);
+
         resolve(this.changes > 0);
       }
     );
