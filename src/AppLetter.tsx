@@ -86,7 +86,7 @@ async function runEnvelopeSequence(params: {
   await sleep(1500);
   setOpenState("opened");
 
-  await sleep(5000);
+  // await sleep(5000);
   setCanNavigate(true);
 
   // navigate(`/home/${letterId}`);
