@@ -31,6 +31,8 @@ router.post("/reserve", async (req, res) => {
 
 router.delete("/reserve", async (req, res) => {
   try {
+    console.log("DELETE BODY:", req.body);
+
     const { reservedBy, itemId } = req.body;
 
     const deleted = await cancelWishlistReservation(
@@ -42,10 +44,11 @@ router.delete("/reserve", async (req, res) => {
       success: deleted,
     });
   } catch (err) {
-    console.error(err);
+    console.error("DELETE ERROR:", err);
 
     res.status(500).json({
       success: false,
+      error: String(err)
     });
   }
 });
