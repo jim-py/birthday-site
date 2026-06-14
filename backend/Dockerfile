@@ -14,7 +14,6 @@ ENV npm_config_build_from_source=true
 
 COPY package*.json ./
 
-RUN rm -rf node_modules package-lock.json || true
 RUN npm ci
 
 COPY . .
