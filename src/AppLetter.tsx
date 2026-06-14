@@ -66,10 +66,9 @@ async function runEnvelopeSequence(params: {
   setOpenState: (s: OpenState) => void;
   setConvertOpened: (v: boolean) => void;
   setZState: (v: ZState) => void;
-  navigate: (path: string) => void;
-  letterId: string;
+  setCanNavigate: (v: boolean) => void;
 }) {
-  const { setOpenState, setConvertOpened, setZState, navigate, letterId } =
+  const { setOpenState, setConvertOpened, setZState, setCanNavigate } =
     params;
 
   // старт анимации
@@ -87,9 +86,10 @@ async function runEnvelopeSequence(params: {
   await sleep(1500);
   setOpenState("opened");
 
-  await sleep(15000);
+  await sleep(5000);
+  setCanNavigate(true);
 
-  navigate(`/home/${letterId}`);
+  // navigate(`/home/${letterId}`);
 }
 
 /* ==========================================================================
@@ -406,6 +406,7 @@ export default function AppLetter() {
   const [convertOpened, setConvertOpened] = useState(false);
   const [openState, setOpenState] = useState<OpenState>("closed");
   const [ZState, setZState] = useState<ZState>("closed");
+  const [canNavigate, setCanNavigate] = useState(false);
 
   const letterId =
     window.location.pathname.split("/").filter(Boolean)[0] ?? null;
@@ -468,8 +469,7 @@ export default function AppLetter() {
       setOpenState,
       setConvertOpened,
       setZState,
-      navigate,
-      letterId,
+      setCanNavigate,
     });
   };
 
@@ -660,6 +660,11 @@ export default function AppLetter() {
                 scaleY: 0.3,
                 zIndex: 1,
               }}
+                onClick={() => {
+    if (canNavigate) {
+      navigate(`/home/${letterId}`);
+    }
+  }}
               animate={{
                 zIndex: ZState === "closed" ? 1 : ZState === "opening" ? 11 : ZState === "opened" ? 110 : 1,
                 y: openState === "closed" ? 0 : [0, -180, 0],
